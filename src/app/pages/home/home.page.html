@@ -1,72 +1,48 @@
-
 <ion-header [translucent]="true">
-  <ion-grid>
-    <ion-row class="ion-justify-content-center ion-margin">
-      <ion-col size="12" size-md="8" size-lg="6">
-        <ion-toolbar>
-          <ion-title class="ion-text-center" #animarH1>GG</ion-title>
-        </ion-toolbar>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <ion-toolbar>
+    <ion-buttons slot="primary">
+      <ion-button [routerLink]="['/perfil']">
+        <ion-icon slot="icon-only" name="person-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    
+  </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-grid>
     <ion-row class="ion-justify-content-center ion-margin">
       <ion-col size="12" size-md="8" size-lg="6">
-  <div class="ion-padding">
-    <ion-title class="ion-text-center">
-    <ion-label><h1>Bienvenida/o {{login.usuario}}</h1></ion-label>
-  </ion-title>
-    <div class="container">
-      <div class="card">
-        <img src="https://i.pinimg.com/236x/a0/61/96/a0619647043fcc1ce07a2723a8a3888e.jpg" alt="Imagen 1" class="card-img"/>
-        <div>
-          <h2>Monopoly</h2>
-          <p>Juego para niños</p>
+        <div id="bienvenida-home">
+          <!-- Bienvenida -->
+           <div class="ovalo">
+            <ion-title class="ion-text-center">
+              <ion-label>
+                <h1 #animarH1 style="font-size: 40px;" class="texto-titulo">Hola, {{login.usuario}}</h1>
+              </ion-label>
+            </ion-title>
+           </div>
         </div>
-      </div>
-    </div>
-    <div class="container">
-      <div class="card">
-    <img src="https://logos-world.net/wp-content/uploads/2023/05/Magic-The-Gathering-Logo.png"/>
-    <div>
-      <h2>Magic</h2>
-      <p>Juego para todas las edades</p>
-    </div>
-  </div>
-</div>
-  </div>
-<div class="ion-text-center">
-  <h4>Que vamos a jugar</h4>
-</div>
-<ion-item>
-  <ion-input label="Nombre de la partida" labelPlacement="floating" [(ngModel)]="data.nombrePartida"></ion-input>
-</ion-item>
-<ion-item>
-  <ion-input label="Numero de participantes" labelPlacement="floating" type="number"  [(ngModel)]="data.numParticipante" ></ion-input>
-</ion-item>
-<ion-item>
-    <ion-select label="Tipo de juegos" placeholder="Seleccione nivel" [(ngModel)]="data.juego">
-      <ion-select-option *ngFor="let niv of niveles" [value]="niv.id">{{niv.nivel}}</ion-select-option>
-    </ion-select>
-</ion-item>
-<ion-item>
-  <ion-input label="Puntos a ganar" labelPlacement="floating" type="number" [(ngModel)]="data.puntos"></ion-input>
-</ion-item>
-<ion-grid>
-  <ion-row>
-    <ion-col size="6">
-      <ion-button shape="block" (click)="limpiar()">Limpiar</ion-button>
-    </ion-col>
-    <ion-col size="6">
-      <ion-button shape="block" (click)="mostrar()">Mostrar</ion-button>
-      <a [routerLink]="['/login']">Cerrar Seción</a>
-    </ion-col>
-  </ion-row>
-</ion-grid>
-</ion-col>
-</ion-row>
-</ion-grid>
+
+        <div class="opcion1">
+          <ion-card button (click)="irAPerfil()">
+            <ion-card-content>
+              <img id="tamaño-icono-cartas" src="https://www.svgrepo.com/show/322935/party-popper.svg" />
+              <h4 class="texto-tamaño">Creacion de partidas</h4>
+            </ion-card-content>
+          </ion-card>
+        </div>
+
+        <div class="opcion2">
+          <ion-card button>
+            <ion-card-content>
+              <img id="tamaño-icono-cartas" src="https://www.shareicon.net/download/2015/11/15/672591_man.svg" />
+              <h4 class="texto-tamaño">Partidas guardadas</h4>
+            </ion-card-content>
+          </ion-card>
+        </div>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

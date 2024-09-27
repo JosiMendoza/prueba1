@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { ToastController,IonModal } from '@ionic/angular';
+import { OverlayEventDetail } from '@ionic/core/components';
+import { FormsModule, FormGroup, FormControl,Validator,FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -8,16 +10,26 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+
+
+
   login:any={
     usuario:"",
     password:""
   }
   registro:any={
-    
+
   }
 
+  recuperar:any={
+    correo:""
+  }
+
+ 
+
   field:string="";
-  constructor(public router: Router, public toastController:ToastController) { }
+  constructor(public router: Router, public toastController:ToastController, public fb: FormBuilder) { }
+
 
   ngOnInit() {
     console.log('LoginPage ngOnInit');
@@ -43,7 +55,7 @@ export class LoginPage implements OnInit {
     console.log('LoginPage ionViewDidLeave');
   }
 
-
+  
   ingresar(){
     if(this.validateModel(this.login)){
       let navigationExtras : NavigationExtras ={
@@ -82,4 +94,37 @@ export class LoginPage implements OnInit {
 
   await toast.present();
  }
+
+/////////////
+  @ViewChild(IonModal)
+  modal!: IonModal;
+
+  message = 'This modal example uses triggers to automatically open a modal when the button is clicked.';
+ 
+
+  cancel() {
+    this.modal.dismiss(null, 'cancel');
+  }
+
+  confirm() {
+    if(this.validateModel(this.recuperar)){
+      let navigationExtras : NavigationExtras ={
+        state:{recuperar: this.recuperar}
+      };
+      this.modal.dismiss(this.recuperar, 'confirm');
+      
+    }else{
+      this.presentToast("middle","Favor de rellenar espacio: "+this.field)
+    }
+    
+  }
+
+  onWillDismiss(event: Event) {
+    const ev = event as CustomEvent<OverlayEventDetail<string>>;
+    if (ev.detail.role === 'confirm') {
+      this.message = `Hello, ${ev.detail.data}!`;
+    }
+  }
+  
 }
+

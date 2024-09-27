@@ -1,3 +1,12 @@
+ion-toolbar {
+    --background: transparent;
+}
+
+ion-content{
+  --overflow: hidden;
+  padding: 0;
+}
+
 *{
   margin: 0;
   padding: 0;
@@ -20,16 +29,6 @@ body {
   max-width: 1200px;
 }
 
-#container {
-  text-align: center;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  flex-wrap: wrap;
-  max-width: 1200px;
-}
 
 #container strong {
   font-size: 20px;
@@ -83,3 +82,80 @@ body {
       width: calc(100% - 20px); /* Una carta por línea en pantallas pequeñas */
   }
 }
+//////
+ion-content{
+  --overflow: hidden;
+  padding: 0;
+}
+
+#bienvenida-home{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20%;
+  width: 100%;
+  height: 100px; 
+  text-align: center;
+  background-color: #a67c52;
+}
+
+.ovalo{
+  position: absolute;
+  height: 200px; 
+  width: 60%;
+  background-color: #555;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  border-style:dashed ;
+  border-color: rgb(54, 58, 58);
+}
+
+.texto-titulo{
+  display: flex;
+  justify-content: center;
+  font-size: 4vw;
+}
+
+///////
+.opcion1{
+  position: absolute;
+  display: flex;
+  width: 40%;
+  /* height: 40%; */
+  margin: 8%;
+  margin-right: 10%;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+ 
+}
+
+#tamaño-icono-cartas{
+  height: 80px;
+  top: 10%;
+}
+
+.texto-tamaño{
+  display: flex;
+  font-size: 4vw;
+  text-align: center;
+}
+////
+.opcion2{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  height: 40%;
+  margin: 8%;
+  margin-left: 10%;
+  text-align: center;
+  align-items: center;
+  left: 42%;
+  bottom: auto;
+ }
+
+

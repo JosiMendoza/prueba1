@@ -19,6 +19,16 @@ const routes: Routes = [
     path: 'registro',
     loadChildren: () => import('./pages/home/registro/registro.module').then( m => m.RegistroPageModule)
   },
+  {
+    path: 'creacion-partida',
+    loadChildren: () => import('./pages/home/creacion-partida/creacion-partida.module').then( m => m.CreacionPartidaPageModule)
+  },
+  {
+    path: 'perfil',
+    loadChildren: () => import('./pages/home/perfil/perfil.module').then( m => m.PerfilPageModule)
+  },
+
+
 
 ];
 
