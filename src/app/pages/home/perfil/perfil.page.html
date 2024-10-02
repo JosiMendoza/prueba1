@@ -1,17 +1,22 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title style="text-align: center;">perfil</ion-title>
-  </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
-    
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button default-href="#"></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>    
   </ion-header>
+  <ion-card>
     <img src="https://freesvg.org/img/abstract-user-flat-3.png"> 
     <ion-label>
-      <h1 style="font-size: 40px;" class="texto-titulo">Hola</h1>
-
+      <h1 style="font-size: 40px; text-align: center;" class="texto-titulo">(Nombre Usuario)</h1>
     </ion-label>
+  </ion-card>
+  <div id="contenedor">
     <a [routerLink]="['/login']">Cerrar Sesión</a>
+  </div>
+    
 </ion-content>

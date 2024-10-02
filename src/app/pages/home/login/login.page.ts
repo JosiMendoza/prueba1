@@ -10,27 +10,26 @@ import { FormsModule, FormGroup, FormControl,Validator,FormBuilder, Validators }
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-
-
-
-  login:any={
-    usuario:"",
-    password:""
-  }
-  registro:any={
-
-  }
-
-  recuperar:any={
-    correo:""
-  }
-
- 
-
   field:string="";
+  usuario = this.fb.group({
+    nombre:["",[Validators.required,Validators.minLength(4),Validators.maxLength(6)]],
+    contraseña:["",[Validators.required,Validators.minLength(8),Validators.maxLength(14)]],
+    correo:["",[Validators.email]]
+  })
   constructor(public router: Router, public toastController:ToastController, public fb: FormBuilder) { }
 
 
+
+  recuperar = this.fb.group({
+    correo:["",[Validators.required,Validators.email]]
+  })
+
+ 
+
+  
+  
+
+////////////////
   ngOnInit() {
     console.log('LoginPage ngOnInit');
   }
@@ -55,24 +54,52 @@ export class LoginPage implements OnInit {
     console.log('LoginPage ionViewDidLeave');
   }
 
-  
-  ingresar(){
-    if(this.validateModel(this.login)){
-      let navigationExtras : NavigationExtras ={
-        state:{login: this.login}
-      };
+//////////////////////
+  iniciarSesion(){
+    if(this.usuario.valid){
+      let navigationExtras: NavigationExtras={
+        state:{loginData:this.usuario.value}
+      }
       this.router.navigate(['/home'], navigationExtras);
-      
     }else{
-      this.presentToast("middle","Favor de rellenar espacio: "+this.field)
+      this.mostrarErrorNombre(this.usuario);
+    }
+
+  }
+  mostrarErrorNombre(form: FormGroup){
+    if (form.get('nombre')?.invalid) {
+      const erroresUsuario = form.get('nombre')?.errors;
+      if (erroresUsuario?.['required']) {
+        this.presentToast('middle', 'El campo Usuario es requerido.');
+      } else if (erroresUsuario?.['minlength']) {
+        this.presentToast('middle', `El Usuario debe tener al menos ${erroresUsuario['minlength'].requiredLength} caracteres.`);
+      }
+    }
+
+    if (form.get('contraseña')?.invalid) {
+      const erroresContraseña = form.get('contraseña')?.errors;
+      if (erroresContraseña?.['required']) {
+        this.presentToast('middle', 'El campo Contraseña es requerido.');
+      } else if (erroresContraseña?.['minlength']) {
+        this.presentToast('middle', `La contraseña debe tener al menos ${erroresContraseña['minlength'].requiredLength} caracteres.`);
+      } else if (erroresContraseña?.['maxlength']) {
+        this.presentToast('middle', `La contraseña debe tener menos de ${erroresContraseña['maxlength'].requiredLength} caracteres.`);
+      }
+    }
+
+    if (form.get('correo')?.invalid) {
+      const erroresCorreo = form.get('correo')?.errors;
+      if (erroresCorreo?.['required']) {
+        this.presentToast('middle', 'El campo Correo es requerido.');
+      } else if (erroresCorreo?.['email']) {
+        this.presentToast('middle', 'Por favor introducir @(dominio).com');
+      }
     }
   }
-  
+
+
   registarse(){
-    let navigationExtras : NavigationExtras ={
-      state :{registro: this.registro}
-    }
-    this.router.navigate(['/registro'], navigationExtras);
+      this.router.navigate(['/registro']);
   }
 
  validateModel(model:any){
@@ -107,16 +134,14 @@ export class LoginPage implements OnInit {
   }
 
   confirm() {
-    if(this.validateModel(this.recuperar)){
-      let navigationExtras : NavigationExtras ={
-        state:{recuperar: this.recuperar}
-      };
-      this.modal.dismiss(this.recuperar, 'confirm');
-      
-    }else{
-      this.presentToast("middle","Favor de rellenar espacio: "+this.field)
+    if (this.recuperar.valid) {
+      // Aquí puedes agregar la lógica para recuperar la contraseña
+      this.modal.dismiss(this.recuperar.value, 'confirm');
+      this.presentToast('middle', 'Correo de recuperación enviado.');
+    } else {
+      this.mostrarErrorNombre(this.recuperar);
+
     }
-    
   }
 
   onWillDismiss(event: Event) {

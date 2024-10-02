@@ -30,11 +30,12 @@ export class HomePage implements OnInit{
     //recibo el parametro enviado desde la page Login
     this.activatedRoute.queryParams.subscribe(params =>{
       if(this.router.getCurrentNavigation()?.extras.state){
-        this.login=this.router.getCurrentNavigation()?.extras?.state?.['login'];
+        this.login=this.router.getCurrentNavigation()?.extras?.state?.['loginData'];
         console.log(this.login)
       }
     });
   }
+  
   ngAfterViewInit(){
     const animarH1=this.animationController
       .create()
@@ -44,7 +45,8 @@ export class HomePage implements OnInit{
       .keyframes([
         { offset: 0, color: 'yellow' },
         { offset: 0.72, color: 'var(--background)' },
-        { offset: 1, color: 'purple' }
+        { offset: 1, color: 'purple' },
+        { offset: 1, color: 'red' },
      ]);
      this.animation = this.animationController
       .create()
@@ -57,9 +59,7 @@ export class HomePage implements OnInit{
   }
   
   irAPerfil() {
-    let navigationExtras: NavigationExtras = {
-      state: { login: this.login }
-    };
-    this.router.navigate(['/perfil'], navigationExtras);
+
+    this.router.navigate(['/perfil']);
   }
 }

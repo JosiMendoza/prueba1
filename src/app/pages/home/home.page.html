@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="primary">
-      <ion-button [routerLink]="['/perfil']">
+      <ion-button (click)="irAPerfil()">
         <ion-icon slot="icon-only" name="person-circle"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -18,14 +18,14 @@
            <div class="ovalo">
             <ion-title class="ion-text-center">
               <ion-label>
-                <h1 #animarH1 style="font-size: 40px;" class="texto-titulo">Hola, {{login.usuario}}</h1>
+                <h1 #animarH1 style="font-size: 40px;" class="texto-titulo" >Hola, {{login.nombre}}</h1>
               </ion-label>
             </ion-title>
            </div>
         </div>
 
         <div class="opcion1">
-          <ion-card button (click)="irAPerfil()">
+          <ion-card button [routerLink]="['/creacion-partida']" >
             <ion-card-content>
               <img id="tamaño-icono-cartas" src="https://www.svgrepo.com/show/322935/party-popper.svg" />
               <h4 class="texto-tamaño">Creacion de partidas</h4>

@@ -17,27 +17,29 @@
         <!-- Formulario de Inicio de Sesión -->
         <div class="ion-text-center">
           <ion-card-content>
-            <ion-item>
-              <ion-input 
-                label="Usuario" 
-                labelPlacement="floating" 
-                [(ngModel)]="login.usuario">
-              </ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-input 
-                label="Password" 
-                labelPlacement="floating" 
-                type="password" 
-                [(ngModel)]="login.password">
-              </ion-input>
-            </ion-item>
+            <form [formGroup]="usuario">
+              <ion-item>
+                <ion-input 
+                  label="Usuario" 
+                  labelPlacement="floating" 
+                  formControlName="nombre" required>
+                </ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-input 
+                  label="Contraseña" 
+                  labelPlacement="floating" 
+                  type="password" 
+                  formControlName="contraseña" required>
+                </ion-input>
+              </ion-item>
+            </form>
           </ion-card-content>
         </div>
 
         <!-- Lista de Botones -->
         <ion-list style="text-align: center;">
-          <ion-button class="ion-button" shape="round" (click)="ingresar()">Iniciar Sesión</ion-button>
+          <ion-button class="ion-button" shape="round" (click)="iniciarSesion()">Iniciar Sesión</ion-button>
           <h1></h1>
           <ion-button class="ion-button" shape="round" (click)="registarse()">Registrarse</ion-button>
           <h1></h1>
@@ -61,14 +63,16 @@
 
             <ion-content class="ion-padding">
               <h6 style="text-align: center;">Ingresa tu correo electronico para buscar tu contraseña</h6>
-              <ion-item>
-                <ion-input
-                  Label="Correo"
-                  type="email"
-                  placeholder="ejemplo123@ejemplo123.com"
-                  [(ngModel)]="recuperar.correo">
-                </ion-input>
-              </ion-item>
+              <form [formGroup]="recuperar">
+                <ion-item>
+                  <ion-input
+                    Label="Correo"
+                    type="email"
+                    placeholder="ejemplo123@ejemplo123.com"
+                    formControlName="correo">
+                  </ion-input>
+                </ion-item>
+              </form>
             </ion-content>
           </ng-template>
         </ion-modal>

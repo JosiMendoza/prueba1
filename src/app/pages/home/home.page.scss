@@ -98,6 +98,7 @@ ion-content{
   height: 100px; 
   text-align: center;
   background-color: #a67c52;
+  
 }
 
 .ovalo{
@@ -111,12 +112,15 @@ ion-content{
   align-items: center; 
   border-style:dashed ;
   border-color: rgb(54, 58, 58);
+  
 }
 
 .texto-titulo{
+  
   display: flex;
   justify-content: center;
-  font-size: 4vw;
+  font-size: 50vw;
+  
 }
 
 ///////
@@ -130,7 +134,7 @@ ion-content{
   text-align: center;
   justify-content: center;
   display: flex;
- 
+  
 }
 
 #tamaño-icono-cartas{

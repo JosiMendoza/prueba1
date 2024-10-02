@@ -1,5 +1,4 @@
 <ion-header [translucent]="true">
-
 </ion-header>
 
 <ion-content [fullscreen]="true">
@@ -9,51 +8,42 @@
 
         <div class="ion-padding">
           <ion-title class="ion-text-center">
-            <ion-label>
-              <h1>Bienvenido nuevo usuario</h1>
-            </ion-label>
+            <h1>Bienvenido nuevo usuario</h1>
           </ion-title>
         </div>
+
 
         <div class="ion-text-center">
           <h4>Ingrese sus datos aquí</h4>
         </div>
 
-        <ion-item>
-          <ion-input 
-            label="Nombre de usuario" 
-            labelPlacement="floating" 
-            [(ngModel)]="registrarse.usuario">
-          </ion-input>
-        </ion-item>
 
-        <ion-item>
-          <ion-input 
-            label="Correo electrónico" 
-            labelPlacement="floating" 
-            [(ngModel)]="registrarse.correo">
-          </ion-input>
-        </ion-item>
+        <form [formGroup]="registro" >
 
-        <ion-item>
-          <ion-input 
-            label="Contraseña" 
-            labelPlacement="floating" 
-            type="password" 
-            [(ngModel)]="registrarse.password">
-          </ion-input>
-        </ion-item>
+          <ion-item>
+            <ion-label position="floating">Nombre de usuario</ion-label>
+            <ion-input formControlName="nombre"></ion-input>
+          </ion-item>
 
-        <ion-list style="text-align: center;">
-          <ion-button class="ion-button" shape="round" (click)="registrar()">Registrarse</ion-button>
-          <h1></h1>
-          <ion-button 
-            class="ion-button" 
-            shape="round" 
-            [routerLink]="['/login']">Iniciar Sesión
-          </ion-button>
-        </ion-list>
 
+          <ion-item>
+            <ion-label position="floating">Correo electrónico</ion-label>
+            <ion-input type="email" formControlName="correo"></ion-input>
+          </ion-item>
+
+
+          <ion-item>
+            <ion-label position="floating">Contraseña</ion-label>
+            <ion-input type="password" formControlName="contraseña"></ion-input>
+          </ion-item>
+
+
+          <ion-list class="ion-text-center">
+            <ion-button shape="round" [routerLink]="['/login']">Iniciar Sesión</ion-button>
+            <ion-button type="submit" shape="round" (click)="registrar()">Registrarse</ion-button>
+
+          </ion-list>
+        </form>
       </ion-col>
     </ion-row>
   </ion-grid>
