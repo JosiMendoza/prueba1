@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } fro
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Animation, AnimationController, IonCard } from '@ionic/angular';
+import {BdlocalService} from '../services/bdlocal.service';
 
 @Component({
   selector: 'app-creacion-partida',
@@ -9,6 +10,10 @@ import { Animation, AnimationController, IonCard } from '@ionic/angular';
   styleUrls: ['./creacion-partida.page.scss'],
 })
 export class CreacionPartidaPage implements OnInit {
+
+  partidasRegistradas: any = [];
+  nombrePartida!: string;
+  numeroJugadores!: number;
 
 
   ngOnInit() {
@@ -27,25 +32,20 @@ export class CreacionPartidaPage implements OnInit {
     {id:6,nivel:"Partida General"}
   ]
   //Construyo un modelo para limpiar
-  data:any={
-    nombrePartida:"",
-    numParticipante:"",
-    juego:"",
-    puntos:""
-  };
+
   login:any;
-  constructor(public alertController:AlertController,) {}
+  constructor(public alertController:AlertController,private dbLocalService: BdlocalService) {}
   
   limpiar(){
-    for (var [key, value] of Object.entries(this.data)) {
-      Object.defineProperty(this.data,key,{value:""})}
+    for (var [key, value] of Object.entries(this.partidasRegistradas)) {
+      Object.defineProperty(this.partidasRegistradas,key,{value:""})}
     }
     /**
      * Metodo para mostrar los datos entregados
      */
     mostrar(){
-      (this.data.nombrePartida!="" && this.data.numParticipante!="") && 
-      this.presentAlert("Usuario","Nombre de partida es "+this.data.nombrePartida+" y su numero de participantes es: "+this.data.numParticipante)||
+      (this.partidasRegistradas.nombrePartida!="" && this.partidasRegistradas.numeroJugadores!="") && 
+      this.presentAlert("Usuario","Nombre de partida es "+this.partidasRegistradas.nombrePartida+" y su numero de participantes es: "+this.partidasRegistradas.numeroJugadores)||
       this.presentAlert("Error","Debe ingresar nombre de la partida y numero de participantes.");
     }
     
@@ -59,4 +59,19 @@ export class CreacionPartidaPage implements OnInit {
       await alert.present();
     }
 
+//////////////
+guardarPartida(){
+  console.log(this.nombrePartida);
+  console.log(this.numeroJugadores);
+  
+  this.dbLocalService.guardarPartidas(this.nombrePartida,this.numeroJugadores);
+  this.partidasRegistradas =(this.dbLocalService.mostrarBD());
+  console.log(this.partidasRegistradas);
+
+}
+eliminarPartida(){
+  console.log(this.nombrePartida);    
+  this.dbLocalService.eliminarPartida(this.nombrePartida);
+  this.partidasRegistradas =(this.dbLocalService.mostrarBD());
+ }
 }

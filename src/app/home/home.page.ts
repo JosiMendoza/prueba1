@@ -3,6 +3,7 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Animation, AnimationController, IonCard } from '@ionic/angular';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -26,7 +27,8 @@ export class HomePage implements OnInit{
   constructor(public alertController:AlertController,
               private activatedRoute: ActivatedRoute,
               private router: Router,
-              private animationController: AnimationController) {
+              private animationController: AnimationController,
+              ) {
     //recibo el parametro enviado desde la page Login
     this.activatedRoute.queryParams.subscribe(params =>{
       if(this.router.getCurrentNavigation()?.extras.state){
@@ -62,4 +64,12 @@ export class HomePage implements OnInit{
 
     this.router.navigate(['/perfil']);
   }
+
+
+  //////
+
+  guardarPartida(){
+    console.log(this)
+  }
+
 }

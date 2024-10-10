@@ -1,0 +1,41 @@
+
+<ion-content [fullscreen]="true">
+  <div class="titulo-texto">
+    <ion-header collapse="condense">
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button default-href="#"></ion-back-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+  </div>
+  
+
+
+
+        <!-- Formulario de configuración de la partida -->
+        <ion-item>
+          <ion-input label="Nombre de la partida" labelPlacement="floating" [(ngModel)]="nombrePartida"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input label="Número de participantes" labelPlacement="floating" type="number" [(ngModel)]="numeroJugadores"></ion-input>
+        </ion-item>
+
+
+        <!-- Botones de acción -->
+        <ion-grid>
+          <ion-row>
+            <ion-col size="6">
+              <ion-button expand="block" (click)="limpiar()">Limpiar</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button expand="block" (click)="guardarPartida()">Guardar partida</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button expand="block" (click)="eliminarPartida()">Eliminar partida</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+</ion-content>

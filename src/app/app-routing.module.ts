@@ -1,10 +1,14 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { PaginaNoEncontradaComponent } from './pagina-no-encontrada/pagina-no-encontrada.component';
+import { authGuard } from './guard/auth.guard';
 
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
+    canActivate:[authGuard]
+     
   },
   {
     path: '',
@@ -13,21 +17,29 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./pages/home/login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   },
   {
     path: 'registro',
-    loadChildren: () => import('./pages/home/registro/registro.module').then( m => m.RegistroPageModule)
+    loadChildren: () => import('./registro/registro.module').then(m => m.RegistroPageModule)
   },
   {
     path: 'creacion-partida',
-    loadChildren: () => import('./pages/home/creacion-partida/creacion-partida.module').then( m => m.CreacionPartidaPageModule)
+    loadChildren: () => import('./creacion-partida/creacion-partida.module').then( m => m.CreacionPartidaPageModule)
   },
   {
     path: 'perfil',
-    loadChildren: () => import('./pages/home/perfil/perfil.module').then( m => m.PerfilPageModule)
+    loadChildren: () => import('./perfil/perfil.module').then( m => m.PerfilPageModule)
+  },
+  {
+    path: 'partidas-guardadas',
+    loadChildren: () => import('./partidas-guardadas/partidas-guardadas.module').then( m => m.PartidasGuardadasPageModule)
   },
 
+  {
+    path:"**",
+    component: PaginaNoEncontradaComponent
+  },
 
 
 

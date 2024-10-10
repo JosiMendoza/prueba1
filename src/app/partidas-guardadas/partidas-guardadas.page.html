@@ -1,0 +1,29 @@
+
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button default-href="#"></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-card>
+    <ion-list>
+      <ion-item-sliding  *ngFor="let item of partidasRegistradas.__zone_symbol__value">
+        <ion-item>
+          <ion-avatar src="https://ionicframework.com/docs/img/demos/avatar.svg"></ion-avatar>
+          <ion-label>
+            <h4 style="word-wrap: break-word; white-space: normal;">Nombre de partida: {{item.strNombrePartida}} </h4>
+            <p>Jugadores: {{item.intNumeroJugadores}}</p>
+          </ion-label>
+        
+        </ion-item>
+      </ion-item-sliding>
+    </ion-list>
+    <div *ngIf="!partidasRegistradas || partidasRegistradas.length === 0">
+        <p style="text-align: center;"> No se han encontrado partidas</p>
+    </div>
+  </ion-card>
+</ion-content>
