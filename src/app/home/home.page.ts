@@ -2,8 +2,8 @@ import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } fro
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Animation, AnimationController, IonCard } from '@ionic/angular';
-
-
+import { TcgDexService } from '../services/tcg-dex.service';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -15,10 +15,10 @@ export class HomePage implements OnInit{
   animarH1!:ElementRef;
   
 
-  
+  image: string | undefined;
 
   ngOnInit() {
-    
+   
   }
 
   
@@ -29,7 +29,7 @@ export class HomePage implements OnInit{
               private router: Router,
               private animationController: AnimationController,
               ) {
-    //recibo el parametro enviado desde la page Login
+    
     this.activatedRoute.queryParams.subscribe(params =>{
       if(this.router.getCurrentNavigation()?.extras.state){
         this.login=this.router.getCurrentNavigation()?.extras?.state?.['loginData'];
@@ -65,11 +65,30 @@ export class HomePage implements OnInit{
     this.router.navigate(['/perfil']);
   }
 
+  irRandomCartas(){
+    this.router.navigate(['/cartas']);
+  }
 
+  irCamara(){
+    this.router.navigate(['/camara']);
+  }
   //////
 
   guardarPartida(){
     console.log(this)
   }
 
+  async takePicture() {
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: false,
+      resultType: CameraResultType.DataUrl,
+      source: CameraSource.Camera 
+    });
+
+    this.image = image.dataUrl; 
+  }
+
 }
+
+

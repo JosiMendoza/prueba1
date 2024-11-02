@@ -12,7 +12,7 @@ export class PaginaNoEncontradaComponent  implements OnInit {
 
   ngOnInit() {}
 
-  regresarLogin(){
-    this.router.navigate(['/login']);
+  regresarHome(){
+    this.router.navigate(['/home']);
   }
 }

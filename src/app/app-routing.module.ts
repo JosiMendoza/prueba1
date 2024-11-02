@@ -35,11 +35,22 @@ const routes: Routes = [
     path: 'partidas-guardadas',
     loadChildren: () => import('./partidas-guardadas/partidas-guardadas.module').then( m => m.PartidasGuardadasPageModule)
   },
-
+  {
+    path: 'cartas',
+    loadChildren: () => import('./cartas/cartas.module').then( m => m.CartasPageModule)
+  },
+  {
+    path: 'camara',
+    loadChildren: () => import('./camara/camara.module').then( m => m.CamaraPageModule)
+  },
   {
     path:"**",
     component: PaginaNoEncontradaComponent
   },
+  
+
+ 
+
 
 
 

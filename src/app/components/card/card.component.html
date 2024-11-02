@@ -1,0 +1,19 @@
+<div >
+
+
+  <div *ngIf="cartaMuestra" class="carta">
+      <!--<img [src]="cartaMuestra.image" alt="{{cartaMuestra.name}}">-->
+    <img [src]="cartaMuestra.image" alt="Imagen no encontrada">
+    
+  </div>
+  <div >
+    <h3 >Ilustrador:</h3>
+  </div>
+  <div *ngIf="cartaMuestra">
+    <h3 alt="No existe ilustrador">{{cartaMuestra.illustrator}}</h3>
+  </div>
+  <button (click)="llenarData()" style="display: block; margin: 0 auto; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">
+      Carta Aleatoria
+  </button>
+  
+</div>

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
-
+import { CameraResultType } from '@capacitor/camera';
 import { HomePageRoutingModule } from './home-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -13,8 +13,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+  
   ],
-  declarations: [HomePage]
+  declarations: [HomePage,  ]
 })
 export class HomePageModule {}

@@ -10,7 +10,7 @@ export class AuthService {
 
 
   setToken(token: string) {
-    this.token = token; // Almacena el token
+    this.token = token; 
   }
 
 

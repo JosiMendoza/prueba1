@@ -2,7 +2,7 @@ import { Component, OnInit,ViewChild } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { ToastController,IonModal } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
-import { FormsModule, FormGroup, FormControl,Validator,FormBuilder, Validators } from '@angular/forms';
+import { FormsModule, FormGroup, FormControl,Validator,FormBuilder, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-login',
@@ -12,7 +12,7 @@ import { AuthService } from '../services/auth.service';
 export class LoginPage implements OnInit {
   field:string="";
   usuario = this.fb.group({
-    nombre:["",[Validators.required,Validators.minLength(4),Validators.maxLength(6)]],
+    nombre:["",[Validators.required,Validators.minLength(4),Validators.maxLength(6), letrasValidator()]],
     contraseña:["",[Validators.required,Validators.minLength(8),Validators.maxLength(14)]],
     correo:["",[Validators.email]]
   })
@@ -75,6 +75,10 @@ export class LoginPage implements OnInit {
         this.presentToast('middle', 'El campo Usuario es requerido.');
       } else if (erroresUsuario?.['minlength']) {
         this.presentToast('middle', `El Usuario debe tener al menos ${erroresUsuario['minlength'].requiredLength} caracteres.`);
+      } else if (erroresUsuario?.['number']){
+        this.presentToast('middle', `El Usuario no debe presentar caracteres numericos.`);
+      }else if (erroresUsuario?.['letrasInvalidas']) {
+        this.presentToast('middle', 'El Usuario debe contener solo letras.');
       }
     }
 
@@ -86,7 +90,7 @@ export class LoginPage implements OnInit {
         this.presentToast('middle', `La contraseña debe tener al menos ${erroresContraseña['minlength'].requiredLength} caracteres.`);
       } else if (erroresContraseña?.['maxlength']) {
         this.presentToast('middle', `La contraseña debe tener menos de ${erroresContraseña['maxlength'].requiredLength} caracteres.`);
-      }
+      } 
     }
 
     if (form.get('correo')?.invalid) {
@@ -153,5 +157,13 @@ export class LoginPage implements OnInit {
     }
   }
   
+  
+}
+
+export function letrasValidator(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const esValido = /^[a-zA-Z]+$/.test(control.value);
+    return esValido ? null : { letrasInvalidas: true };
+  };
 }
 
