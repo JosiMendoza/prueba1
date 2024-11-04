@@ -31,7 +31,7 @@ export class CreacionPartidaPage implements OnInit {
     {id:5,nivel:"Pokemon General"},
     {id:6,nivel:"Partida General"}
   ]
-  //Construyo un modelo para limpiar
+
 
   login:any;
   constructor(public alertController:AlertController,private dbLocalService: BdlocalService) {}
@@ -40,9 +40,7 @@ export class CreacionPartidaPage implements OnInit {
     for (var [key, value] of Object.entries(this.partidasRegistradas)) {
       Object.defineProperty(this.partidasRegistradas,key,{value:""})}
     }
-    /**
-     * Metodo para mostrar los datos entregados
-     */
+   
     mostrar(){
       (this.partidasRegistradas.nombrePartida!="" && this.partidasRegistradas.numeroJugadores!="") && 
       this.presentAlert("Usuario","Nombre de partida es "+this.partidasRegistradas.nombrePartida+" y su numero de participantes es: "+this.partidasRegistradas.numeroJugadores)||
