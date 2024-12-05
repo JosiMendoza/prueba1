@@ -1,7 +1,5 @@
-import { Component, OnInit} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
-
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-perfil',
@@ -9,22 +7,21 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./perfil.page.scss'],
 })
 export class PerfilPage implements OnInit {
+  userEmail: string = ''; // Almacenará el correo del usuario
 
- 
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
-  }
-  
-  login:any;
-  constructor(public alertController:AlertController,
-    private activatedRoute: ActivatedRoute,
-    private router: Router,) {
-
-  this.activatedRoute.queryParams.subscribe(params =>{
-  if(this.router.getCurrentNavigation()?.extras.state){
-  this.login=this.router.getCurrentNavigation()?.extras?.state?.['loginData'];
-  console.log(this.login)
-    }
-   });
+    this.authService.getUser().then(user => {
+      if (user) {
+        this.userEmail = user.email || 'Correo no disponible'; // Asignamos el correo
+      } else {
+        this.userEmail = 'Usuario no autenticado'; // Si no hay usuario, mostramos un mensaje
+      }
+    }).catch(error => {
+      console.error('Error al obtener el usuario:', error);
+      this.userEmail = 'Error al obtener correo';
+    });
   }
 }
+

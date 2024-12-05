@@ -7,12 +7,12 @@
     
   </div>
   <div >
-    <h3 >Ilustrador:</h3>
+    <h3 style="color: aliceblue;">Ilustrador:</h3>
   </div>
   <div *ngIf="cartaMuestra">
-    <h3 alt="No existe ilustrador">{{cartaMuestra.illustrator}}</h3>
+    <h3 alt="No existe ilustrador" style="color: aliceblue;">{{cartaMuestra?.illustrator}}</h3>
   </div>
-  <button (click)="llenarData()" style="display: block; margin: 0 auto; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">
+  <button (click)="llenarData()" style="display: block; margin: 0 auto; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size: 300%;">
       Carta Aleatoria
   </button>
   

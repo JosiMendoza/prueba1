@@ -1,20 +1,25 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Router } from '@angular/router';
+import { User } from '../models/user.model';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private token: string = ''; 
-  constructor() {}
+  user = {} as User;
+  constructor(private afAuth: AngularFireAuth, private router: Router) { }
 
 
-  setToken(token: string) {
-    this.token = token; 
+  getUser() {
+    return this.afAuth.currentUser; 
   }
 
+  
+  isAuth() {
+    return this.afAuth.authState; 
+  }
 
-  isAuth(): boolean {
-    return this.token.length > 0; 
+  logout() {
+    return this.afAuth.signOut();
   }
 }

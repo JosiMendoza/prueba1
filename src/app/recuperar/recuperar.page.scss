@@ -1,0 +1,44 @@
+
+ion-content {
+    --background: #2c2b2c;
+  }
+
+  ion-card {
+    --background: #534e4e;
+  }
+
+  ion-card-title {
+    --color: #ffffff;
+  }
+
+
+ion-item {
+  --background: #1d1b1b;
+  --color: #ffffff;
+
+}
+
+ion-button{
+  --background: #851515;
+  --ripple-color: rgb(255, 20, 255);
+  --background-focused: #5e35f1;
+}
+
+ion-back-button{
+  --background: #df4141;
+  --color: #ffffff;
+}
+
+ion-toolbar{
+  --background: #161616;
+}
+
+ion-list{
+    --background: #df4141;
+    --color: #da1111;
+}
+
+.boton-recuperacion {
+    margin-top: 20%; /* Separa el botón del input */
+  }
+

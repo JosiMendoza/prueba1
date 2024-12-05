@@ -1,4 +1,36 @@
 ion-content{
     --overflow: hidden;
+    
     padding: 0;
   }
+
+  ion-content {
+    --background: #2c2b2c;
+  }
+
+  ion-card {
+    --background: #534e4e;
+  }
+
+  ion-card-title {
+    --color: #ffffff;
+  }
+
+
+ion-item {
+  --background: #333333;
+  --color: #ffffff;
+}
+
+ion-button{
+  --background: #851515;
+  --ripple-color: rgb(255, 20, 255);
+  --background-focused: #5e35f1;
+}
+
+a{
+  color: #ff9d9d;
+}
+a:hover {
+  color: #ff0505; 
+}

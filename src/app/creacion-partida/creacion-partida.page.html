@@ -7,15 +7,15 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
-        <ion-item>
-          <ion-input label="Nombre de la partida" labelPlacement="floating" [(ngModel)]="nombrePartida"></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-input label="Número de participantes" labelPlacement="floating" type="number" [(ngModel)]="numeroJugadores"></ion-input>
-        </ion-item>
-
+        <div class="items">
+          <ion-item>
+            <ion-input label="Nombre de la partida" labelPlacement="floating" [(ngModel)]="nombrePartida"></ion-input>
+          </ion-item>
+  
+          <ion-item>
+            <ion-input label="Número de participantes" labelPlacement="floating" type="number" [(ngModel)]="numeroJugadores"></ion-input>
+          </ion-item>
+        </div>
 
       
         <ion-grid>

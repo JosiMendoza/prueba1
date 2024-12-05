@@ -4,21 +4,25 @@ import { AlertController } from '@ionic/angular';
 import { Animation, AnimationController, IonCard } from '@ionic/angular';
 import { TcgDexService } from '../services/tcg-dex.service';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { User } from '../models/user.model';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit{
-
+  user = {} as User;
   @ViewChild('animarH1',{read: ElementRef, static: true})
   animarH1!:ElementRef;
   
 
   image: string | undefined;
 
+  loginData: any;
+  user1: any;
   ngOnInit() {
-   
+   this.getUserData();
   }
 
   
@@ -28,7 +32,7 @@ export class HomePage implements OnInit{
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private animationController: AnimationController,
-              ) {
+              public afAuth: AngularFireAuth) {
     
     this.activatedRoute.queryParams.subscribe(params =>{
       if(this.router.getCurrentNavigation()?.extras.state){
@@ -38,6 +42,16 @@ export class HomePage implements OnInit{
     });
   }
   
+  async getUserData(){
+    const user1 = await this.afAuth.currentUser;
+    if(user1){
+      this.user1 = user1;
+      console.log('usuario autentificado', this.user);
+    }else{
+      console.log('datos del usuario no encontrado')
+    }
+  }
+
   ngAfterViewInit(){
     const animarH1=this.animationController
       .create()
@@ -71,6 +85,10 @@ export class HomePage implements OnInit{
 
   irCamara(){
     this.router.navigate(['/camara']);
+  }
+
+  PaginaError(){
+    this.router.navigate(['/**']);
   }
   //////
 

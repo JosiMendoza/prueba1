@@ -13,12 +13,15 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-button shape="round" expand="block" (click)="takePicture()">
-    FOTO
-  </ion-button>
+  <div class="titulo">
+    <ion-button shape="round" expand="block" (click)="takePicture()">
+      FOTO
+    </ion-button>
+  </div>
+
 
   <div class="conseguirImagen">
-    <img src="{{this.picture}}" alt="Foto tomada"/>
+    <img src="{{this.picture}}" />
   </div>
 
   

@@ -2,3 +2,37 @@ ion-content{
     --overflow: hidden;
     padding: 0;
   }
+
+
+  ion-content {
+    --background: #2c2b2c;
+  }
+
+  ion-card {
+    --background: #534e4e;
+  }
+
+  ion-card-title {
+    --color: #ffffff;
+  }
+
+
+ion-item {
+  --background: #333333;
+  --color: #ffffff;
+}
+
+ion-button{
+  --background: #851515;
+  --ripple-color: rgb(255, 20, 255);
+  --background-focused: #5e35f1;
+}
+
+ion-back-button{
+  --background: #df4141;
+  --color: #ffffff;
+}
+
+ion-toolbar{
+  --background: #161616;
+}

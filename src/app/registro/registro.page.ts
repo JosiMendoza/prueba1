@@ -1,8 +1,11 @@
 import { Component, OnInit,ViewChild } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
-import { ToastController,IonModal } from '@ionic/angular';
+import { ToastController,IonModal, LoadingController, NavController } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { FormsModule, FormGroup, FormControl,Validator,FormBuilder, Validators } from '@angular/forms';
+
+import { User } from '../models/user.model';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-registro',
@@ -11,77 +14,68 @@ import { FormsModule, FormGroup, FormControl,Validator,FormBuilder, Validators }
 })
 export class RegistroPage implements OnInit {
 
-  constructor(public router: Router, public toastController:ToastController, public fb: FormBuilder) { }
+  user = {} as User;
 
-
-
-  registro = this.fb.group({
-    nombre:["",[Validators.required,Validators.minLength(4)]],
-    correo:["",[Validators.email]],
-    contraseña:["",[Validators.required,Validators.minLength(8),Validators.maxLength(14)]],
-    
-  })
-
- 
-
-  
-  
-
-////////////////
   ngOnInit() {
     console.log('LoginPage ngOnInit');
   }
-
-//////////////////////
-  registrar(){
-    if(this.registro.valid){
-      let navigationExtras: NavigationExtras={
-        state:{loginData:this.registro.value}
-      }
-      this.router.navigate(['/login'], navigationExtras);
-    }else{
-      this.mostrarErrorNombre(this.registro);
-    }
-
-  }
-  mostrarErrorNombre(form: FormGroup){
-    if (form.get('nombre')?.invalid) {
-      const erroresUsuario = form.get('nombre')?.errors;
-      if (erroresUsuario?.['required']) {
-        this.presentToast('middle', 'El campo Usuario es requerido.');
-      } else if (erroresUsuario?.['minlength']) {
-        this.presentToast('middle', `El Usuario debe tener al menos ${erroresUsuario['minlength'].requiredLength} caracteres.`);
-      }
-    }
-
-    if (form.get('contraseña')?.invalid) {
-      const erroresContraseña = form.get('contraseña')?.errors;
-      if (erroresContraseña?.['required']) {
-        this.presentToast('middle', 'El campo Contraseña es requerido.');
-      } else if (erroresContraseña?.['minlength']) {
-        this.presentToast('middle', `La contraseña debe tener al menos ${erroresContraseña['minlength'].requiredLength} caracteres.`);
-      } else if (erroresContraseña?.['maxlength']) {
-        this.presentToast('middle', `La contraseña debe tener menos de ${erroresContraseña['maxlength'].requiredLength} caracteres.`);
-      }
-    }
-
-    if (form.get('correo')?.invalid) {
-      const erroresCorreo = form.get('correo')?.errors;
-      if (erroresCorreo?.['required']) {
-        this.presentToast('middle', 'El campo Correo es requerido.');
-      } else if (erroresCorreo?.['email']) {
-        this.presentToast('middle', 'Por favor introducir @(dominio).com');
-      }
-    }
-  }
-
-  async presentToast(position: 'top'|'middle'|'bottom', msg:string, duration?:number){
-    const toast = await this.toastController.create({
-      message: msg,
-      duration: duration?duration:2500,
-      position: position,
-    });
   
-    await toast.present();
-   }
-}
+  constructor(public router: Router, public toastController:ToastController, public fb: FormBuilder,
+    public loadingCtrl: LoadingController,
+    public afAuth: AngularFireAuth,
+    public navCtrl: NavController 
+  ) { }
+
+  async registracion(user: User) {
+    if (this.formValidation()) {
+      let loader = await this.loadingCtrl.create({
+        message: "Esperar por favor..."
+      });
+      await loader.present();
+  
+      try {
+        // Intenta crear el usuario en Firebase Auth
+        const response = await this.afAuth.createUserWithEmailAndPassword(user.email, user.password);
+        console.log('Usuario registrado con éxito', response);
+  
+        // Si el registro es exitoso, redirige al login
+        this.navCtrl.navigateRoot("login");
+      } catch (error: any) {
+        // Si ocurre un error, muestra el mensaje correspondiente
+        console.error('Error al registrar', error);
+        let errorMessage = error.message || 'Error desconocido';
+  
+        if (error.code === 'auth/email-already-in-use') {
+          errorMessage = 'El correo electrónico ya está en uso.';
+        } else if (error.code === 'auth/invalid-email') {
+          errorMessage = 'El correo electrónico no es válido.';
+        } else if (error.code === 'auth/weak-password') {
+          errorMessage = 'La contraseña es demasiado débil.';
+        }
+  
+        this.showToast(errorMessage);
+      }
+  
+      await loader.dismiss();
+    }
+  }
+  
+  formValidation() {
+    if (!this.user.email) {
+      this.showToast("Ingrese un email");
+      return false;
+    }
+    if (!this.user.password) {
+      this.showToast("Ingrese una contraseña");
+      return false;
+    }
+    return true;
+  }
+  
+  showToast(message: string) {
+    this.toastController.create({
+      message: message,
+      duration: 4000
+    }).then(toastData => toastData.present());
+  }
+}  
